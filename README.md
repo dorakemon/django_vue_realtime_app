@@ -9,6 +9,7 @@ python manage.py runserver
 
 ## frontend側
 ```cd frontend/server
+cd frontend
 npm install
 npm install -g nodemon
 nodemon
