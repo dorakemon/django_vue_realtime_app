@@ -7,4 +7,5 @@ router.register('todo', TodoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    
 ]
