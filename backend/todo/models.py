@@ -6,4 +6,4 @@ class Todo(models.Model):
     content = models.CharField(verbose_name="内容", max_length=255)
 
     def __str__(self):
-        return f'{self.username} {self.content}'
+        return f'{self.username} / {self.content}'
