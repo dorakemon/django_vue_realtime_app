@@ -17,8 +17,6 @@
 </template>
 
 <script>
-// import axios from '@/common/axios-auth'
-// import { CSRF_TOKEN } from "../common/csrf_token.js";
 
 export default {
   name: "Login",
@@ -29,20 +27,6 @@ export default {
     }
   },
   methods: {
-    // sendUserInfo(){
-    //   axios({
-    //     method: "POST",
-    //     url: "jwt/create/",
-    //     data: {
-    //       username: this.username,
-    //       password: this.password
-    //     },
-    //     headers: {
-    //       "content-type": "application/json",
-    //       //"X-CSRFTOKEN": CSRF_TOKEN
-    //     }
-    //   });
-    // },
     login() {
       this.$store.dispatch('login', {
         username : this.username,

@@ -38,6 +38,7 @@ import io from 'socket.io-client';
 import axios from "axios";
 
 export default {
+    name: 'Chat',
     data() {
         return {
             user: '',
@@ -65,7 +66,13 @@ export default {
             // you can also do this.messages.push(data)
         });
         
-        axios.get("http://localhost:8000/api/todo/")
+        axios.get("http://localhost:8000/api/todo/", {
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${localStorage.getItem('jwt').slice(1).slice(0,-1)}` 
+            },
+            data: {}
+        })
             .then(response => {
             this.test = response.data;
         });
