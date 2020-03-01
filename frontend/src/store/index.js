@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '@/common/axios-auth'
 
+import router from '@/router'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -36,13 +38,23 @@ export default new Vuex.Store({
       })
       .then(response => {
         commit('storeIdToken', response.data.access)
-        // router.push('main')
+
+        // reload何？
+        router.push('/')
       });
     },
     logout ({commit}) {
       localStorage.removeItem('jwt')
       commit('clear')
+    },
+    reload (context) {
+      return axios.get('users/me/')
+        .then(response => {
+          const user = response.data
+          // storeのユーザー情報を更新
+          context.commit('set', { user: user })
+          return user
+        })
     }
-  
-}
+  }
 })
