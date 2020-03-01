@@ -22,6 +22,10 @@ export default new Vuex.Store({
       //state.idRefresh = idRefresh // refreshの扱いはあとで 
       localStorage.setItem("jwt", JSON.stringify(idToken))
       state.loggedIn = true
+    },
+    clear (state) {
+      state.idToken = '',
+      state.idLoggedIn = false
     }
   },
   actions: {
@@ -30,10 +34,15 @@ export default new Vuex.Store({
         username: auth.username,
         password: auth.password,
       })
-    .then(response => {
-      commit('storeIdToken', response.data.access)
-      // router.push('main')
-    });
-  }
+      .then(response => {
+        commit('storeIdToken', response.data.access)
+        // router.push('main')
+      });
+    },
+    logout ({commit}) {
+      localStorage.removeItem('jwt')
+      commit('clear')
+    }
+  
 }
 })
