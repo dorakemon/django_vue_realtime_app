@@ -35,7 +35,7 @@
 /* eslint-disable no-console */
 
 import io from 'socket.io-client';
-import axios from "axios";
+import axios from "../common/axios-token.js";
 
 export default {
     name: 'Chat',
@@ -67,13 +67,7 @@ export default {
         });
         
         // ローカルストレージでダブルクォーテーションが前後についてるからカット
-        axios.get("http://localhost:8000/api/todo/", {
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `JWT ${localStorage.getItem('jwt').slice(1).slice(0,-1)}` 
-            },
-            data: {}
-        })
+        axios.get("todo/")
             .then(response => {
             this.test = response.data;
         });
