@@ -66,6 +66,7 @@ export default {
             // you can also do this.messages.push(data)
         });
         
+        // ローカルストレージでダブルクォーテーションが前後についてるからカット
         axios.get("http://localhost:8000/api/todo/", {
             headers: { 
                 'Content-Type': 'application/json',
