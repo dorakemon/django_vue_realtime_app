@@ -14,6 +14,10 @@ export default new Vuex.Store({
     // idRefresh: "",
     loggedIn: false,
     username: '',
+
+    error: false,
+
+    registerError: false,
   },
 
   getters: {
@@ -22,6 +26,8 @@ export default new Vuex.Store({
     loggedIn: state => state.loggedIn,
 
     username: state => state.username,
+
+    error: state => state.error,
   },
 
   mutations : {
@@ -29,16 +35,21 @@ export default new Vuex.Store({
       state.idToken = idToken;
       //state.idRefresh = idRefresh // refreshの扱いはあとで 
       localStorage.setItem("jwt", JSON.stringify(idToken))
-      state.loggedIn = true
+      state.loggedIn = true,
+      state.error = false
     },
     clear (state) {
       state.idToken = '',
-      state.idLoggedIn = false
+      state.loggedIn = false,
+      state.username = ''
     },
     set (state, payload) {
-      state.username = payload.user.username
-      state.isLoggedIn = true
+      state.username = payload.user.username,
+      state.loggedIn = true
     },
+    errorHappen(state) {
+      state.error = true
+    }
   },
 
   actions: {
@@ -50,11 +61,17 @@ export default new Vuex.Store({
       .then(response => {
         commit('storeIdToken', response.data.access)
         router.push('/')
-      });
+      })
+      .catch(function() {
+        //console.log("errorhappen",error)
+        commit('errorHappen')
+        //state.error=true
+      })
     },
     logout ({commit}) {
       localStorage.removeItem('jwt')
       commit('clear')
+      router.push('/login/')
     },
     reload ({commit}) {
       return axios_token.get('auth/users/me/')

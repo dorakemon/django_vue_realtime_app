@@ -30,12 +30,17 @@
           <label for="message">Message:</label>
           <input type="text" v-model="message" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-success">Send</button>
+        <v-row>
+          <v-btn type="submit" class="success ml-3">Send</v-btn>
+          <v-spacer/>
+          <Logout class="mb-3 mr-3"/>
+        </v-row>
       </form>
       <!-- <p>{{messages}}</p> -->
     </div>
-    <!-- <div class="btn btn-danger mt-4" @click="logout">ログアウト</div> -->
   </div>
+    <!-- <div class="btn btn-danger mt-4" @click="logout">ログアウト</div> -->
+
 </template>
 
 <script>
@@ -43,6 +48,7 @@
 
 import io from "socket.io-client";
 import axios from "../common/axios-token.js";
+import Logout from "./Logout.vue"
 
 export default {
   name: "Chat",
@@ -56,6 +62,9 @@ export default {
       test: ""
     };
   },
+  components: {
+    Logout
+  },
   methods: {
     sendMessage(e) {
       e.preventDefault();
@@ -66,6 +75,9 @@ export default {
         });
         this.message = "";
       }
+    },
+    logout() {
+
     }
   },
   mounted() {
