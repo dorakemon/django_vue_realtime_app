@@ -155,3 +155,5 @@ SIMPLE_JWT = {
     #トークンの持続時間の設定
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5)
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')

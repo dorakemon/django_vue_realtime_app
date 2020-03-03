@@ -10,7 +10,7 @@ const getAuthorization = () => {
 };
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8000/api/',
+    baseURL: 'http://52.194.254.106/api/',
     headers: { 
         'Content-Type': 'application/json',
         'Authorization': getAuthorization()
