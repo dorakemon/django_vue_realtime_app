@@ -1,18 +1,18 @@
 <template>
-  <div class="card mt-3">
+  <div class="card col-md-6 col-sm-7 mx-auto mt-8">
     <div class="card-body">
       <div class="card-title">
         <h3>Todo Group</h3>
         <hr />
       </div>
       <div class="card-body">
-        <div class="test" v-for="(msg, index) in test" :key="index">
+        <div class="test" v-for="(test, index) in tests" :key="`first-${index}`">
           <p>
-            <span class="font-weight-bold">{{ msg.username }}:</span>
-            {{ msg.content }}
+            <span class="font-weight-bold">{{ test.username }}:</span>
+            {{ test.content }}
           </p>
         </div>
-        <div class="messages" v-for="(msg, index) in messages" :key="index">
+        <div class="messages" v-for="(msg, index) in messages" :key="`second-${index}`">
           <p>
             <span class="font-weight-bold">{{ msg.user }}:</span>
             {{ msg.message }}
@@ -36,10 +36,8 @@
           <Logout class="mb-3 mr-3"/>
         </v-row>
       </form>
-      <!-- <p>{{messages}}</p> -->
     </div>
   </div>
-    <!-- <div class="btn btn-danger mt-4" @click="logout">ログアウト</div> -->
 
 </template>
 
@@ -60,7 +58,7 @@ export default {
       // socket: io("3.112.235.240:3001"),
       socket: io("3.112.235.240:3001"),
 
-      test: ""
+      tests: [],
     };
   },
   components: {
@@ -81,20 +79,18 @@ export default {
         axios.post("todo/",
         {"username": `${this.$store.getters.username}`,
           "content": `${this.message}`})
-        .then(response => {
-          this.test = response.data;
-        });
     }
   },
   created() {
     axios.get("todo/").then(response => {
-      this.test = response.data;
+      this.tests = response.data;
     });
   },
   mounted() {
     this.socket.on("MESSAGE", data => {
-      this.messages = [...this.messages, data];
-      // you can also do this.messages.push(data)
+      //this.messages = [...this.messages, data];
+      this.messages.push(data)
+      console.log(data)
     });
   }
 }
