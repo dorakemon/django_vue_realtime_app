@@ -31,7 +31,7 @@
           <input type="text" v-model="message" class="form-control" />
         </div>
         <v-row>
-          <v-btn type="submit" class="success ml-3">Send</v-btn>
+          <v-btn type="submit" class="success ml-3" @click="postMessage">Send</v-btn>
           <v-spacer/>
           <Logout class="mb-3 mr-3"/>
         </v-row>
@@ -48,7 +48,7 @@
 
 import io from "socket.io-client";
 import axios from "../common/axios-token.js";
-import Logout from "./Logout.vue"
+import Logout from "./Logout.vue";
 
 export default {
   name: "Chat",
@@ -76,6 +76,14 @@ export default {
         });
         this.message = "";
       }
+    },
+    postMessage() {
+        axios.post("todo/",
+        {"username": `${this.$store.getters.username}`,
+          "content": `${this.message}`})
+        .then(response => {
+          this.test = response.data;
+        });
     }
   },
   created() {
@@ -89,9 +97,6 @@ export default {
       // you can also do this.messages.push(data)
     });
   }
-};
+}
+
 </script>
-
-<style>
-
-</style>
