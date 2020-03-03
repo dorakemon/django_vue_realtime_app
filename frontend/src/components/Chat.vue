@@ -24,7 +24,7 @@
       <form @submit.prevent="sendMessage">
         <div class="gorm-group">
           <label for="user">User:</label>
-          <input type="text" v-model="user" class="form-control" />
+          <input type="text" :value="this.$store.getters.username" class="form-control" readonly />
         </div>
         <div class="gorm-group pb-3">
           <label for="message">Message:</label>
@@ -57,7 +57,8 @@ export default {
       user: "",
       message: "",
       messages: [],
-      socket: io("3.112.235.240:3001"),
+      // socket: io("3.112.235.240:3001"),
+      socket: io("localhost:3001"),
 
       test: ""
     };
@@ -70,24 +71,22 @@ export default {
       e.preventDefault();
       if (this.message!="") {
         this.socket.emit("SEND_MESSAGE", {
-          user: this.user,
+          user: this.$store.getters.username,
           message: this.message
         });
         this.message = "";
       }
-    },
-    logout() {
-
     }
+  },
+  created() {
+    axios.get("todo/").then(response => {
+      this.test = response.data;
+    });
   },
   mounted() {
     this.socket.on("MESSAGE", data => {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
-    });
-
-    axios.get("todo/").then(response => {
-      this.test = response.data;
     });
   }
 };
