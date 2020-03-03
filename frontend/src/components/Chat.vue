@@ -1,5 +1,5 @@
 <template>
-  <div class="card col-md-6 col-sm-7 mx-auto mt-8">
+  <v-app class="card col-md-6 col-sm-7 mx-auto mt-8">
     <div class="card-body">
       <div class="card-title">
         <h3>Todo Group</h3>
@@ -37,7 +37,7 @@
         </v-row>
       </form>
     </div>
-  </div>
+  </v-app>
 
 </template>
 
