@@ -55,7 +55,6 @@ export default {
       user: "",
       message: "",
       messages: [],
-      // socket: io("3.112.235.240:3001"),
       socket: io("3.112.235.240:3001"),
 
       tests: [],
