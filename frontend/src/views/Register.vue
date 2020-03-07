@@ -62,7 +62,6 @@ export default {
   name: "Register",
   data () {
     return {
-      //  すべて完璧な登録状態ならclickable
       username: "",
       email: "",
       password: "",
